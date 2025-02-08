@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4e1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            position: absolute;
+        }
+
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .yes:hover {
+            transform: scale(1.2);
+        }
+
+        .no {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: floatUp 3s ease-in-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-50px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-150px) scale(1.5);
+            }
+        }
+
+        .message-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <div class="buttons">
+            <button class="yes" onclick="showHearts(event)">Sí</button>
+            <button class="no" onmouseenter="moverBoton(this)">No</button>
+        </div>
+    </div>
+
+    <div class="message-box" id="messageBox">
+        <h2>¡Sabía que dirías que sí! 💖</h2>
+    </div>
+
+    <script>
+        function moverBoton(boton) {
+            let container = document.querySelector(".container");
+            let maxX = container.clientWidth - boton.offsetWidth;
+            let maxY = container.clientHeight - boton.offsetHeight;
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            boton.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showHearts(event) {
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                document.body.appendChild(heart);
+                
+                let x = event.clientX + (Math.random() * 100 - 50);
+                let y = event.clientY + (Math.random() * 100 - 50);
+                
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+            let messageBox = document.getElementById("messageBox");
+            messageBox.style.display = "block";
+            setTimeout(() => {
+                messageBox.style.display = "none";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
